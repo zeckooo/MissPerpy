@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: rgb(246, 211, 217);
+    font-family: 'Dancing Script', cursive;
+    font-size: large;
+    text-align: center; /* Center-align text */
+    font-family: 'Dancing Script', cursive;
+    font-weight: 500; /* Adjusted weight to give it a clearer look */
+    font-size: 1.5rem; /* Increased size for readability */
+    line-height: 1.6; /* Added line height for better spacing */
+    text-align: center;
+    background-color: rgb(246, 211, 217);
+    font-family: 'Dancing Script', cursive;
+    font-weight: 500;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    text-align: center;
+    background-color: rgb(246, 211, 217);
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    font-size: 1.5em;
+    color: #e94d58;
+    margin: 15px 0;
+}
+
+.gif {
+    width: 300px; /* Set the width to your desired size */
+    height: auto; /* Maintain aspect ratio */
+    max-width: 100%; /* Ensure it doesn't overflow its container */
+    display: block; /* Ensure it behaves as a block-level element */
+    margin: 20px auto; /* Center the GIF horizontally */
+}
+
+.btn-group {
+    display: flex;
+    gap: 20px; /* Space between buttons */
+    justify-content: center; /* Center buttons horizontally */
+    margin-top: 50px;
+    /* Add width if needed */
+    /* width: 100%; */
+}
+
+button {
+    width: 150px;
+    height: 50px;
+    font-size: 1.2em;
+    color: white;
+    border-radius: 30px;
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 2px 4px gray;
+    border: 2px solid #e94d58;
+}
+
+
+button:nth-child(1) {
+    background: #e94d58;
+}
+
+button:nth-child(2) {
+    background: white;
+    color: #e94d58;
+}
+
