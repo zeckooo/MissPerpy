@@ -57,6 +57,8 @@ button {
     width: 150px;
     height: 50px;
     font-size: 1.2em;
+    font-family: 'Dancing Script', cursive; /* Ensure the correct font is applied */
+    font-weight: 700; /* Set the font weight to 700 */
     color: white;
     border-radius: 30px;
     outline: none;
@@ -64,7 +66,6 @@ button {
     box-shadow: 0 2px 4px gray;
     border: 2px solid #e94d58;
 }
-
 
 button:nth-child(1) {
     background: #e94d58;
