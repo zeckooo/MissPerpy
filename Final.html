@@ -6,11 +6,11 @@
     <title>Contact Me 🔪</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="images/7be023f70e5a2181ec91e6e3d8c8433b_removebg_preview_5lh_icon.ico" type="image/x-icon" />
 
     <style>
-* {
+      * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -21,12 +21,13 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 120vh; /* Increase from 100vh to 120vh */
     background-color: rgb(246, 211, 217);
     font-family: 'Dancing Script', cursive;
     font-size: 1.5rem;
     line-height: 1.6;
     text-align: center;
+    position: relative;
 }
 
 h2 {
@@ -35,12 +36,30 @@ h2 {
     margin: 20px 0;
 }
 
+.gif-container {
+    position: relative;
+    display: inline-block;
+    margin-top: 50px;
+}
+
 .gif {
-    width: 300px;
+    width: 150px;
     height: auto;
-    max-width: 100%;
     display: block;
     margin: 20px auto;
+}
+
+.tag {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #e94d58;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1em;
+    transform: translate(50%, -50%);
 }
 
 .btn-group {
@@ -59,7 +78,7 @@ button {
     outline: none;
     cursor: pointer;
     box-shadow: 0 2px 4px gray;
-    border: 2px solid #e94d58;
+    border: none;
     transition: background-color 0.3s, transform 0.3s;
 }
 
@@ -78,72 +97,235 @@ button:hover {
     transform: scale(1.05);
 }
 
-.instagram-profile {
-    margin: 20px 0;
-    text-align: center;
-}
-
-.instagram-profile img {
-    width: 230px; /* Increased size */
-    height: 230px; /* Increased size */
-    border-radius: 50%; /* Makes the image round */
-    object-fit: cover; /* Ensures the image covers the circle */
-    border: none; /* Removed border */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add shadow */
-    
-}
-
 .contact-button {
-    
     margin-top: 40px;
     padding: 10px 20px;
-    font-size: 1.5rem; /* Adjusted font size */
-    font-weight: 500; /* Adjusted font weight */
-    color: whitesmoke; /* Text color */
-    background-color: #e94d58; /* Red background color */
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: whitesmoke;
+    background-color: #e94d58;
     border: none;
     border-radius: 30px;
     cursor: pointer;
     text-align: center;
-    text-decoration: none; /* Remove underline */
+    text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 10px; /* Space between text and icon */
-    transition: background-color 0.3s, transform 0.3s; /* Smooth transition */
+    gap: 10px;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .contact-button:hover {
-    background-color: #c43d4c; /* Darker shade on hover */
-    color: whitesmoke; /* Keep text color unchanged */
-    transform: scale(1.05); /* Slight scaling effect */
+    background-color: #c43d4c;
+    color: whitesmoke;
+    transform: scale(1.05);
 }
 
-.contact-button i {
-    font-size: 1.5rem; /* Adjust icon size */
-    color: whitesmoke; /* Make sure icon color matches text */
+/* Updated Pop-up style */
+#popup {
+    margin-left: 29%;
+    display: none;
+    top: calc(84% + 4px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 000;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-.contact-button img {
-    width: 30px; /* Adjust size as needed */
-    height: 30px; /* Adjust size as needed */
-    vertical-align: middle; /* Aligns the image with the text */
-    opacity: 0.6; /* Subtle icon appearance */
+#popup.show {
+    display: block;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    animation: popIn 0.3s ease-out;
 }
+
+@keyframes popIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+#popup h3 {
+    margin-bottom: 20px;
+}
+
+#popup button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: whitesmoke;
+    background-color: #e94d58;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#popup button:hover {
+    background-color: #c43d4c;
+    transform: scale(1.05);
+}
+
+/* Hello Kitty Letter style */
+#hello-kitty-letter {
+    margin-top: 180px;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 2000;
+    max-width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+    font-size: 1.7rem;
+    animation: popIn 0.3s ease-out;
+}
+
+#hello-kitty-letter button {
+    background-color: #e94d58; /* Close button background */
+    color: whitesmoke; /* Close button text color */
+    padding: 10px 20px; /* Padding for the button */
+    font-size: 1.2rem; /* Font size */
+    border-radius: 30px; /* Rounded corners */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.3s; /* Transition effects */
+    
+}
+
+#hello-kitty-letter button:hover {
+    background-color: #c43d4c; /* Darker background on hover */
+    transform: scale(1.05); /* Scale effect on hover */
+}
+
+.hello-kitty-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.hello-kitty-gif {
+
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-top: -23px;
+    margin-bottom: 7px;
+}
+
     </style>
 </head>
 <body>
     <h2>Good choice! Looks like you're up for a fun activity!</h2>
     <div class="instagram-profile">
-        
         <a href="https://www.instagram.com/slightly_weird_/" target="_blank">
-            <img src="images/455203739_1210002330037433_2337492419493506222_n.webp" alt="Instagram Profile Picture">
+            <img src="images/455203739_1210002330037433_2337492419493506222_n.webp" alt="Instagram Profile Picture" style="width: 230px; height: 230px; border-radius: 50%; object-fit: cover; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
         </a>
         <a href="https://www.instagram.com/slightly_weird_/" class="contact-button">
             Contact Me Miss Perpy! 🔪
         </a>
     </div>
 
-    <!-- Add Font Awesome for the icon if you don't have it yet -->
+    <!-- GIF Container -->
+    <div class="gif-container">
+        <img src="https://media.giphy.com/media/cx1SVu2ehrkygaIMlk/giphy.gif" id="letter-gif" alt="Plume GIF" class="gif" style="cursor: pointer;" />
+        <div class="tag">+1</div>
+    </div>
+
+    <!-- Pop-up for Secret Question -->
+    <div id="popup">
+        <h3>Favorite Valorant agent?</h3>
+        <input type="text" id="answer" placeholder="Type your answer here">
+        <button id="submit-answer">Submit</button>
+        <button class="letter-button" onclick="closeHelloKittyLetter()">Close</button>
+    </div>
+
+    <!-- Hello Kitty Letter -->
+    <div id="hello-kitty-letter">
+        <h3>Dear Perpy!,</h3>
+        <p>I know that letting someone in can be frightening, especially when past hurts linger. It takes courage to open up again, and I truly respect that. I’m asking you to take a chance on me and leap of faith together, so I can show you just how genuine I am. I promise to be patient and understanding as we navigate this journey together.</p>        <div id="hello-kitty-content">
+            <!-- Hello Kitty GIFs and images will be dynamically added here -->
+        </div>
+        <button onclick="closeHelloKittyLetter()">Close</button>
+    </div>
+
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <script>
+        document.getElementById("letter-gif").onclick = function() {
+            openPopup();
+        };
+    
+        function openPopup() {
+            const popup = document.getElementById("popup");
+            popup.style.display = 'block';
+            
+            // Trigger reflow to ensure the transition works
+            void popup.offsetWidth;
+            
+            popup.classList.add('show');
+            
+            // Smooth scroll to the popup
+            popup.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    
+        function closePopup() {
+            const popup = document.getElementById("popup");
+            popup.classList.remove('show');
+            
+            // Wait for the animation to finish before hiding the popup
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 300);
+        }
+    
+        document.getElementById("submit-answer").onclick = function() {
+            var answer = document.getElementById("answer").value;
+            if (answer && answer.toLowerCase() === "brimstone") {
+                closePopup();
+                showHelloKittyLetter();
+            } else {
+                alert("Oops! That's not correct. Try again.");
+            }
+        };
+    
+        function showHelloKittyLetter() {
+            const helloKittyContent = document.getElementById("hello-kitty-content");
+            helloKittyContent.innerHTML = ''; // Clear previous content
+    
+            // Add a single Hello Kitty GIF
+            const gif = "https://media.giphy.com/media/92YG8KKSjYhMc/giphy.gif"; // Direct link to the GIF
+            const imgElement = document.createElement("img");
+            imgElement.src = gif;
+            imgElement.classList.add("hello-kitty-gif");
+            helloKittyContent.appendChild(imgElement);
+    
+            document.getElementById("hello-kitty-letter").style.display = 'block';
+        }
+    
+        function closeHelloKittyLetter() {
+            document.getElementById("hello-kitty-letter").style.display = 'none';
+        }
+    </script>
+    
 </body>
 </html>
