@@ -265,6 +265,7 @@ button:hover {
     </style>
 </head>
 <body>
+    <div id="answers-container"></div>
     <button class="dare-button" onclick="window.location.href='Dares.html'">
         Dare to Take the Quiz? 🤔
     </button>
@@ -299,7 +300,7 @@ button:hover {
         </div>
         <button onclick="closeHelloKittyLetter()">Close</button>
     </div>
-        <div id="answers-container"></div>
+
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
     <script>
@@ -370,8 +371,25 @@ button:hover {
     } else {
         console.log("No answers found.");
     }
+    document.addEventListener('DOMContentLoaded', () => {
+    const savedAnswers = JSON.parse(localStorage.getItem('answers'));
+    const answersContainer = document.getElementById('answers-container');
+
+    if (savedAnswers) {
+        savedAnswers.forEach((answer, index) => {
+            const answerElement = document.createElement('p');
+            answerElement.textContent = `Answer ${index + 1}: ${answer}`;
+            answersContainer.appendChild(answerElement);
+        });
+    }
 });
 
+// Call this function when you want to display the answers
+function showAnswers() {
+    document.getElementById('answers-container').style.display = 'block';
+}
+
+});
     </script>
     
 </body>
