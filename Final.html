@@ -277,7 +277,6 @@ button:hover {
             Contact Me Miss Perpy! 🔪
         </a>
     </div>
-
     <!-- GIF Container -->
     <div class="gif-container">
         <img src="https://media.giphy.com/media/cx1SVu2ehrkygaIMlk/giphy.gif" id="letter-gif" alt="Plume GIF" class="gif" style="cursor: pointer;" />
@@ -358,7 +357,21 @@ button:hover {
         function closeHelloKittyLetter() {
             document.getElementById("hello-kitty-letter").style.display = 'none';
         }
-        
+        document.addEventListener('DOMContentLoaded', () => {
+    const savedAnswers = JSON.parse(localStorage.getItem('answers'));
+
+    if (savedAnswers) {
+        const answersContainer = document.getElementById('answers-container');
+        savedAnswers.forEach((answer, index) => {
+            const answerElement = document.createElement('p');
+            answerElement.textContent = `Answer ${index + 1}: ${answer}`;
+            answersContainer.appendChild(answerElement);
+        });
+    } else {
+        console.log("No answers found.");
+    }
+});
+
     </script>
     
 </body>
