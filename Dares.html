@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Game - Question Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="images/your_icon.ico" type="image/x-icon" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: rgb(246, 211, 217);
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #e94d58;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.5rem;
+            color: white;
+            background-color: #e94d58;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #c43d4c;
+            transform: scale(1.05);
+        }
+
+        .question-container {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .answer-item {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #e94d58;
+            border-radius: 10px;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .answer-item:hover {
+            background-color: #f1c6d9;
+        }
+    </style>
+</head>
+<body>
+
+    <h2 id="game-question">Wanna go for a mini game?</h2>
+    <button id="start-game-button">Yes! Let's do it!</button>
+
+    <div id="question-container" class="question-container">
+        <h2 id="current-question">What is your favorite color?</h2>
+        <div class="answer-item" onclick="selectAnswer('Red')">Red</div>
+        <div class="answer-item" onclick="selectAnswer('Blue')">Blue</div>
+        <div class="answer-item" onclick="selectAnswer('Green')">Green</div>
+        <div class="answer-item" onclick="selectAnswer('Yellow')">Yellow</div>
+        <button id="close-wheel">Close</button>
+    </div>
+    <div id="end-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h2>Congratulations!</h2>
+            <p>You've completed the quiz!</p>
+            <button id="close-modal">Close</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const questions = [
+                { 
+                    question: "What do you think about Ilyass?", 
+                    answers: [
+                        "Lover boy 🥰", 
+                        "Playboy 😏", 
+                        "Daddy Material 😎", 
+                        "An absolute a**hole 🙄" 
+                    ] 
+                },
+                { 
+                    question: "What physical features do you like about that silly Ilyass?", 
+                    answers: [
+                        "His back (because I like a strong guy) 💪", 
+                        "His smile (it makes my heart skip) 😄", 
+                        "His eyes (they're like deep oceans) 👀", 
+                        "I don’t like him at all (but I still think he’s funny) 😂" 
+                    ] 
+                },
+                { 
+                    question: "Do you think Ilyass can handle you? (I goddamn know I can miss Perpy!)", 
+                    answers: [
+                        "Absolutely! He won’t know what hit him! 😏", 
+                        "Maybe, but I might have to teach him a few things! 😉", 
+                        "Not a chance! I’m a handful! 😜", 
+                        "I’ll just charm him into submission! 😈" 
+                    ] 
+                },
+                { 
+                    question: "If Ilyass were a dessert, what would he be?", 
+                    answers: [
+                        "Chocolate cake (sweet and irresistible) 🍰", 
+                        "Sour candy (a little too much sometimes) 🍬", 
+                        "Ice cream (cool and refreshing) 🍦", 
+                        "Burnt toast (not my type) 🍞" 
+                    ] 
+                },
+                { 
+                    question: "Which superpower would you want to steal from Ilyass?", 
+                    answers: [
+                        "His charm (I'd use it all the time) ✨", 
+                        "His confidence (I could conquer the world) 💪", 
+                        "His sense of humor (everyone loves a good laugh) 😂", 
+                        "None! I'm perfect as I am! 😉" 
+                    ] 
+                },
+                { 
+                    question: "If you could describe Ilyass in a song, what would it be?", 
+                    answers: [
+                        "“Just the Way You Are” (because he’s perfect) 🎶", 
+                        "“Hotline Bling” (a little too clingy) 📞", 
+                        "“Oops!... I Did It Again” (classic Ilyass) 🎤", 
+                        "“Cry Me a River” (drama king) 🌊" 
+                    ] 
+                },
+                { 
+                    question: "What would you wish Ilyass understood about you?", 
+                    answers: [
+                        "I tend to get scared when people get close to me 😳", 
+                        "I push the people I like away (it's complicated!) 😅", 
+                        "I need my space sometimes! 🛋️", 
+                        "I appreciate honesty above all else! 💬" 
+                    ] 
+                },
+                { 
+                    question: "If you could teach Ilyass one thing, what would it be?", 
+                    answers: [
+                        "To be patient with the things he likes (no rush!) ⏳", 
+                        "How to take things slow and enjoy the moment 🌼", 
+                        "To communicate better about feelings! ❤️", 
+                        "To take things one step at a time! 🚶" 
+                    ] 
+                },
+                { 
+                    question: "What made you lose interest and scare you away?", 
+                    answers: [
+                        "Pursuing me too hard (I felt like I was on a reality show!) 🎬", 
+                        "Asking for more time together when I had plans (sorry, but I have a life too! 😅)", 
+                        "Rushing things with me, which felt unhealthy (I was scared of losing you, but also scared of you! 😱)", 
+                        "Not leaving me time to figure out my feelings (I need my 'me time'! 🧘‍♀️)" 
+                    ] 
+                },
+                { 
+                    question: "Would you be willing to a second chance?", 
+                    answers: [
+                        "Absolutely! I love a good comeback story! 📖", 
+                        "Maybe, if he plays his cards right! 🃏", 
+                        "Only if he comes with a warning label! ⚠️", 
+                        "Nah, I’m good! I prefer my drama on TV! 📺" 
+                    ] 
+                }
+            ];
+        
+            let currentQuestionIndex = 0; // Declare this only once
+            let answers = []; // Array to store answers
+        
+            document.getElementById("start-game-button").onclick = function() {
+                document.getElementById("game-question").style.display = 'none';
+                document.getElementById("start-game-button").style.display = 'none';
+                document.getElementById("question-container").style.display = 'block';
+                loadQuestion();
+            };
+        
+            function loadQuestion() {
+                const currentQuestion = questions[currentQuestionIndex];
+                document.getElementById("current-question").innerText = currentQuestion.question;
+                const answerItems = document.querySelectorAll(".answer-item");
+                answerItems.forEach((item, index) => {
+                    item.innerText = currentQuestion.answers[index];
+                    item.onclick = () => selectAnswer(currentQuestion.answers[index]); // Set click handler
+                });
+            }
+        
+            function selectAnswer(answer) {
+                answers.push(answer); // Store the answer
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    loadQuestion();
+                } else {
+                    sendAnswers(answers); // Send answers to the database
+                }
+            }
+        
+            function sendAnswers(answers) {
+                fetch('submit.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ answers: answers })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message); // Log success message
+                    window.location.href = 'Final.html'; // Redirect to Final.html
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        
+            document.getElementById("close-wheel").onclick = function() {
+                window.location.href = 'Final.html'; // Redirect to Final.html
+            };
+        });
+    </script>
+    
+    
+    
+</body>
+</html>
