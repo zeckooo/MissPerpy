@@ -231,11 +231,44 @@ button:hover {
     margin-top: -23px;
     margin-bottom: 7px;
 }
+.dare-button {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    padding: 12px 18px;
+    font-size: 1.3rem;
+    color: whitesmoke;
+    background-color: #e94d58;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    display: inline-flex; /* Changed to inline-flex */
+    align-items: center;
+    justify-content: center; /* Center content horizontally */
+    transition: background-color 0.3s, transform 0.3s;
+    white-space: nowrap;
+    max-width: 100%; /* Ensure button doesn't exceed its container */
+    width: auto; /* Allow button to grow based on content */
+    min-width: max-content; /* Ensure button is at least as wide as its content */
+}
+
+.dare-button:hover {
+    background-color: #c43d4c;
+    transform: scale(1.05);
+}
+
+.dare-button span {
+    margin-left: 8px;
+    font-size: 1.2rem;
+}
 
     </style>
 </head>
 <body>
-    <h2>Good choice! Looks like you're up for a fun activity!</h2>
+    <button class="dare-button" onclick="window.location.href='Dares.html'">
+        Dare to Take the Quiz? 🤔
+    </button>
+        <h2>Good choice! Looks like you're up for a fun activity!</h2>
     <div class="instagram-profile">
         <a href="https://www.instagram.com/slightly_weird_/" target="_blank">
             <img src="images/455203739_1210002330037433_2337492419493506222_n.webp" alt="Instagram Profile Picture" style="width: 230px; height: 230px; border-radius: 50%; object-fit: cover; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);">
@@ -325,20 +358,8 @@ button:hover {
         function closeHelloKittyLetter() {
             document.getElementById("hello-kitty-letter").style.display = 'none';
         }
+        
     </script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-2JYRMGE5FS"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  // Get the user agent (device info)
-  let deviceInfo = navigator.userAgent;
-
-  // Track the device info as an event parameter
-  gtag('event', 'page_view', {
-    'device_info': deviceInfo
-  });
-</script>
+    
 </body>
 </html>
