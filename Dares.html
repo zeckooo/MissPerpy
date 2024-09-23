@@ -185,58 +185,57 @@
                 }
             ];
         
-            let currentQuestionIndex = 0; // Declare this only once
-            let answers = []; // Array to store answers
-        
-            document.getElementById("start-game-button").onclick = function() {
-                document.getElementById("game-question").style.display = 'none';
-                document.getElementById("start-game-button").style.display = 'none';
-                document.getElementById("question-container").style.display = 'block';
-                loadQuestion();
-            };
-        
-            function loadQuestion() {
-                const currentQuestion = questions[currentQuestionIndex];
-                document.getElementById("current-question").innerText = currentQuestion.question;
-                const answerItems = document.querySelectorAll(".answer-item");
-                answerItems.forEach((item, index) => {
-                    item.innerText = currentQuestion.answers[index];
-                    item.onclick = () => selectAnswer(currentQuestion.answers[index]); // Set click handler
-                });
-            }
-        
-            function selectAnswer(answer) {
-                answers.push(answer); // Store the answer
-                currentQuestionIndex++;
-                if (currentQuestionIndex < questions.length) {
-                    loadQuestion();
-                } else {
-                    sendAnswers(answers); // Send answers to the database
-                }
-            }
-        
-            function sendAnswers(answers) {
-                fetch('submit.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ answers: answers })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data.message); // Log success message
-                    window.location.href = 'Final.html'; // Redirect to Final.html
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            }
-        
-            document.getElementById("close-wheel").onclick = function() {
-                window.location.href = 'Final.html'; // Redirect to Final.html
-            };
+      let currentQuestionIndex = 0;
+    let answers = [];
+
+    document.getElementById("start-game-button").onclick = function() {
+        document.getElementById("game-question").style.display = 'none';
+        document.getElementById("start-game-button").style.display = 'none';
+        document.getElementById("question-container").style.display = 'block';
+        loadQuestion();
+    };
+
+    function loadQuestion() {
+        const currentQuestion = questions[currentQuestionIndex];
+        document.getElementById("current-question").innerText = currentQuestion.question;
+        const answerItems = document.querySelectorAll(".answer-item");
+        answerItems.forEach((item, index) => {
+            item.innerText = currentQuestion.answers[index];
+            item.onclick = () => selectAnswer(currentQuestion.answers[index]);
         });
+    }
+
+    function selectAnswer(answer) {
+        answers.push(answer);
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            loadQuestion();
+        } else {
+            finishQuiz();
+        }
+    }
+
+    function finishQuiz() {
+        // Display a completion message
+        document.getElementById("question-container").innerHTML = `
+            <h2>Congratulations!</h2>
+            <p>You've completed the quiz!</p>
+            <button id="show-answers">Show My Answers</button>
+        `;
+
+        document.getElementById("show-answers").onclick = function() {
+            let answerList = "<h3>Your Answers:</h3><ul>";
+            answers.forEach((answer, index) => {
+                answerList += `<li>Q${index + 1}: ${answer}</li>`;
+            });
+            answerList += "</ul>";
+            document.getElementById("question-container").innerHTML += answerList;
+        };
+    }
+
+    document.getElementById("close-wheel").onclick = function() {
+        window.location.href = 'Final.html';
+    };
     </script>
     
     
