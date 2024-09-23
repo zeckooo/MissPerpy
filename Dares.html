@@ -71,25 +71,18 @@
     </style>
 </head>
 <body>
-
     <h2 id="game-question">Wanna go for a mini game?</h2>
     <button id="start-game-button">Yes! Let's do it!</button>
 
     <div id="question-container" class="question-container">
-        <h2 id="current-question">What is your favorite color?</h2>
-        <div class="answer-item" onclick="selectAnswer('Red')">Red</div>
-        <div class="answer-item" onclick="selectAnswer('Blue')">Blue</div>
-        <div class="answer-item" onclick="selectAnswer('Green')">Green</div>
-        <div class="answer-item" onclick="selectAnswer('Yellow')">Yellow</div>
+        <h2 id="current-question"></h2>
+        <div class="answer-item"></div>
+        <div class="answer-item"></div>
+        <div class="answer-item"></div>
+        <div class="answer-item"></div>
         <button id="close-wheel">Close</button>
     </div>
-    <div id="end-modal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <h2>Congratulations!</h2>
-            <p>You've completed the quiz!</p>
-            <button id="close-modal">Close</button>
-        </div>
-    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const questions = [
@@ -108,16 +101,16 @@
                         "His back (because I like a strong guy) 💪", 
                         "His smile (it makes my heart skip) 😄", 
                         "His eyes (they're like deep oceans) 👀", 
-                        "I don’t like him at all (but I still think he’s funny) 😂" 
+                        "I don't like him at all (but I still think he's funny) 😂" 
                     ] 
                 },
                 { 
                     question: "Do you think Ilyass can handle you? (I goddamn know I can miss Perpy!)", 
                     answers: [
-                        "Absolutely! He won’t know what hit him! 😏", 
+                        "Absolutely! He won't know what hit him! 😏", 
                         "Maybe, but I might have to teach him a few things! 😉", 
-                        "Not a chance! I’m a handful! 😜", 
-                        "I’ll just charm him into submission! 😈" 
+                        "Not a chance! I'm a handful! 😜", 
+                        "I'll just charm him into submission! 😈" 
                     ] 
                 },
                 { 
@@ -141,10 +134,10 @@
                 { 
                     question: "If you could describe Ilyass in a song, what would it be?", 
                     answers: [
-                        "“Just the Way You Are” (because he’s perfect) 🎶", 
-                        "“Hotline Bling” (a little too clingy) 📞", 
-                        "“Oops!... I Did It Again” (classic Ilyass) 🎤", 
-                        "“Cry Me a River” (drama king) 🌊" 
+                        ""Just the Way You Are" (because he's perfect) 🎶", 
+                        ""Hotline Bling" (a little too clingy) 📞", 
+                        ""Oops!... I Did It Again" (classic Ilyass) 🎤", 
+                        ""Cry Me a River" (drama king) 🌊" 
                     ] 
                 },
                 { 
@@ -180,65 +173,53 @@
                         "Absolutely! I love a good comeback story! 📖", 
                         "Maybe, if he plays his cards right! 🃏", 
                         "Only if he comes with a warning label! ⚠️", 
-                        "Nah, I’m good! I prefer my drama on TV! 📺" 
+                        "Nah, I'm good! I prefer my drama on TV! 📺" 
                     ] 
                 }
             ];
-        
-      let currentQuestionIndex = 0;
-    let answers = [];
 
-    document.getElementById("start-game-button").onclick = function() {
-        document.getElementById("game-question").style.display = 'none';
-        document.getElementById("start-game-button").style.display = 'none';
-        document.getElementById("question-container").style.display = 'block';
-        loadQuestion();
-    };
+            let currentQuestionIndex = 0;
+            let answers = [];
 
-    function loadQuestion() {
-        const currentQuestion = questions[currentQuestionIndex];
-        document.getElementById("current-question").innerText = currentQuestion.question;
-        const answerItems = document.querySelectorAll(".answer-item");
-        answerItems.forEach((item, index) => {
-            item.innerText = currentQuestion.answers[index];
-            item.onclick = () => selectAnswer(currentQuestion.answers[index]);
+            document.getElementById("start-game-button").onclick = function() {
+                document.getElementById("game-question").style.display = 'none';
+                document.getElementById("start-game-button").style.display = 'none';
+                document.getElementById("question-container").style.display = 'block';
+                loadQuestion();
+            };
+
+            function loadQuestion() {
+                if (currentQuestionIndex < questions.length) {
+                    const currentQuestion = questions[currentQuestionIndex];
+                    document.getElementById("current-question").innerText = currentQuestion.question;
+                    const answerItems = document.querySelectorAll(".answer-item");
+                    answerItems.forEach((item, index) => {
+                        item.innerText = currentQuestion.answers[index];
+                        item.onclick = () => selectAnswer(currentQuestion.answers[index]);
+                    });
+                } else {
+                    finishQuiz();
+                }
+            }
+
+            function selectAnswer(answer) {
+                answers.push(answer);
+                currentQuestionIndex++;
+                loadQuestion();
+            }
+
+            function finishQuiz() {
+                // You can optionally save answers to localStorage here if needed
+                // localStorage.setItem('quizAnswers', JSON.stringify(answers));
+                
+                // Redirect to final.html
+                window.location.href = 'final.html';
+            }
+
+            document.getElementById("close-wheel").onclick = function() {
+                window.location.href = 'final.html';
+            };
         });
-    }
-
-    function selectAnswer(answer) {
-        answers.push(answer);
-        currentQuestionIndex++;
-        if (currentQuestionIndex < questions.length) {
-            loadQuestion();
-        } else {
-            finishQuiz();
-        }
-    }
-
-    function finishQuiz() {
-        // Display a completion message
-        document.getElementById("question-container").innerHTML = `
-            <h2>Congratulations!</h2>
-            <p>You've completed the quiz!</p>
-            <button id="show-answers">Show My Answers</button>
-        `;
-
-        document.getElementById("show-answers").onclick = function() {
-            let answerList = "<h3>Your Answers:</h3><ul>";
-            answers.forEach((answer, index) => {
-                answerList += `<li>Q${index + 1}: ${answer}</li>`;
-            });
-            answerList += "</ul>";
-            document.getElementById("question-container").innerHTML += answerList;
-        };
-    }
-
-    document.getElementById("close-wheel").onclick = function() {
-        window.location.href = 'Final.html';
-    };
     </script>
-    
-    
-    
 </body>
 </html>
